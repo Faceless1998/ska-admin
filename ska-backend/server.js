@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
-const productSchema = require("./schema/product");
+const productSchema = require("./schema/post");
 const env = require("./env.json");
 const PORT = process.env.PORT || env.PORT;
 const BASE_URL = env.BASE_URL;
@@ -30,8 +30,8 @@ mongoose.connect(uri, {
   });
   const Admin = require("./router/admin");
   app.use("/api", Admin);
-  const modifyProduct = require("./router/products");
-  app.use("/products", modifyProduct);
+  const modifyProduct = require("./router/post");
+  app.use("/post", modifyProduct);
 }
 
 app.listen(PORT, () => {

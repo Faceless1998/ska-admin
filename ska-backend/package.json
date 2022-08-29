@@ -9,25 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url": " "
+    "url": "git+https://github.com/Faceless1998/ska-admin/tree/main/ska-backend.git"
   },
-
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Faceless1998/ska-admin/tree/main/ska-backend/issues"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "homepage": "https://github.com/Faceless1998/ska-admin/tree/main/ska-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "i": "^0.3.6",
+    "mongoose": "^5.13.4",
+    "path": "^0.12.7"
   }
 }
