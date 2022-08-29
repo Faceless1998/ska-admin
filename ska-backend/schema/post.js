@@ -22,6 +22,9 @@ const Images = new mongoose.Schema({
   },
 });
 const Posts = new mongoose.Schema({
+  type: {
+    type: String,
+  },
   name: {
     type: String,
     required: true,

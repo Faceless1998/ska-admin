@@ -62,52 +62,13 @@ router.route("/getallpost").get(async (req, res) => {
 });
 
 router.route("/getconcrettypepost/:type").get(async (req, res) => {
-  if (req.params.type === "all-Audio") {
-    /*
-Surface_Mount_Ceiling_Speaker
-Mini_Smart_Music_Host
-Network_Smart_Music_Sys
-Smart_Central_Music_Sys
-Economic_Music_Sys
-Speaker
-EN54_Ceiling_Speaker
-Fireproof_Ceiling_Speaker
-Two-Way_Ceiling_Speaker
-Coaxial_Ceiling_Speaker
-Flush_Mount_Ceiling_Speaker*/
-    const typeArr = [
-      "Audio_Products",
-      "Surface_Mount_Ceiling_Speaker",
-      "Flush_Mount_Ceiling_Speaker",
-      "Coaxial_Ceiling_Speaker",
-      "Fireproof_Ceiling_Speaker",
-      "Two-Way_Ceiling_Speaker",
-      "EN54_Ceiling_Speaker",
-      "Speaker",
-      "Mini_Smart_Music_Host",
-      "Network_Smart_Music_Sys",
-      "Smart_Central_Music_Sys",
-      "Economic_Music_Sys",
-    ];
-    PosttSchema.find().then((rr) => {
-      let result = [];
-      rr.map(item2 => {
-      typeArr.map((item) => {
-          if (item2.PostType === item) {
-            console.log("test")
-            result.push(item2)
-          }
-        })
-      });
-    res.json(result);
-    });
-  } else {
+
     PosttSchema
       .find({ PostType: req.params.type })
       .then(async (result) => {
         await res.json(result);
       });
-  }
+  
 });
 router.route("/getconcretpost/:id").get(async (req, res) => {
   PosttSchema.find({}).then((result) => {

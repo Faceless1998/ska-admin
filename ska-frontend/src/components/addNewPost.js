@@ -9,8 +9,6 @@ import {
   MuiThemeProvider,
   TextField,
   TextareaAutosize,
-  Checkbox,
-  FormControlLabel,
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -31,25 +29,21 @@ const theme = createTheme({
 
 export default function AddNewPost() {
   const [name, setName] = useState("");
-  const [nameRU, setNameRU] = useState("");
   const [nameGE, setNameGE] = useState("");
 
   const [description, setDescription] = useState("");
-  const [descriptionRU, setDescriptionRU] = useState("");
   const [descriptionGE, setDescriptionGE] = useState("");
 
   const [thumbImg, setThumbImg] = useState();
-  const [productImg, setProductImg] = useState();
+  const [postImg, setPostImg] = useState();
   const [feature, setFeature] = useState("");
   const [featureGE, setFeatureGE] = useState("");
-  const [featureRU, setFeatureRU] = useState("");
 
   const [selectType, setSelectType] = useState();
   const [type, setType] = useState("false");
 
-  const [unicProd, setunicProd] = useState("");
   useEffect(() => {
-    axios.get(`${env.URL}/api/getallprodtype`).then((result) => {
+    axios.get(`${env.URL}/api/getallposttype`).then((result) => {
       if (result.data.success) {
         console.log(result.data.data);
         setSelectType(result.data.data);
@@ -67,7 +61,7 @@ export default function AddNewPost() {
           console.log(fileURL);
           x = [...x, fileURL];
           console.log(x);
-          setProductImg(x);
+          setPostImg(x);
         };
         fileReader.readAsDataURL(e.target.files[i]);
       }
@@ -81,20 +75,14 @@ export default function AddNewPost() {
     }
   };
 
-  const check = () => {
-    const data = { name, description, feature, thumbImg, productImg };
-    const dataRU = { nameRU, descriptionRU, featureRU };
+  const upload = () => {
+    const data = { name, description, feature, thumbImg, postImg };
     const dataGE = { nameGE, descriptionGE, featureGE };
-    if (type == "false") {
-      alert("აირჩიეთ პროდუქტის ტიპი");
-    } else {
       axios
-        .post(`${env.URL}/products/add`, {
+        .post(`${env.URL}/post/add`, {
           type,
           data,
-          dataRU,
           dataGE,
-          unicProduct: unicProd,
         })
         .then((response) => {
           if (response.data.success) {
@@ -103,19 +91,10 @@ export default function AddNewPost() {
             alert("პროდუქტის დამატება ვერ მოხერხდა");
           }
         });
-    }
   };
-  const [checked, setChecked] = React.useState(true);
 
-  const handleChange = (event) => {
-    if (event.target.checked) {
-      setunicProd("");
-    }
-    setChecked(event.target.checked);
-  };
   return (
     <>
-      {console.log(checked, unicProd)}
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="md">
@@ -244,42 +223,6 @@ export default function AddNewPost() {
                   }}
                 />
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <h3>რუსული</h3>
-
-                <TextField
-                  placeholder="დასახელება(RU)"
-                  value={nameRU}
-                  onChange={(e) => {
-                    setNameRU(e.target.value);
-                  }}
-                ></TextField>
-                <TextField
-                  placeholder="აღწერა(RU)"
-                  value={descriptionRU}
-                  onChange={(e) => {
-                    setDescriptionRU(e.target.value);
-                  }}
-                ></TextField>
-                <TextareaAutosize
-                  placeholder="მახასიათებლები(RU)"
-                  minRows={4}
-                  style={{
-                    backgroundColor: "transparent",
-                    borderRadius: 5,
-                    marginTop: 5,
-                  }}
-                  value={featureRU}
-                  onChange={(e) => {
-                    setFeatureRU(e.target.value);
-                  }}
-                />
-              </div>
             </div>
             <div
               style={{
@@ -288,28 +231,14 @@ export default function AddNewPost() {
                 flexDirection: "column",
               }}
             >
-              <FormControlLabel
-                label="გამორჩეული პროდუქტი"
-                control={<Checkbox checked={checked} onChange={handleChange} />}
-              />
-              {checked && (
-                <>
-                  <TextField
-                    placeholder="პროდუქტის კოდი"
-                    value={unicProd}
-                    onChange={(e) => {
-                      setunicProd(e.target.value);
-                    }}
-                  ></TextField>
-                </>
-              )}
+             
               <Button
                 variant="contained"
                 type="submit"
                 color="primary"
                 style={{ marginTop: "20px" }}
                 onClick={() => {
-                  check();
+                  upload();
                 }}
               >
                 პროდუქტის დამატება
