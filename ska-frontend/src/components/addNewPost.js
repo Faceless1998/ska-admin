@@ -40,7 +40,7 @@ export default function AddNewPost() {
   const [featureGE, setFeatureGE] = useState("");
 
   const [selectType, setSelectType] = useState();
-  const [type, setType] = useState("false");
+  const [type, setType] = useState("true");
 
   useEffect(() => {
     axios.get(`${env.URL}/api/getallposttype`).then((result) => {

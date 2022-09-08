@@ -55,8 +55,7 @@ const Posts = new mongoose.Schema({
 const PostSchema = new mongoose.Schema({
   PostType: {
     type: String,
-    required: true,
   },
-  Posts: [Posts],
+  Posts: [],
 });
-module.exports = mongoose.model("products", PostSchema);
+module.exports = mongoose.model("post", PostSchema);
