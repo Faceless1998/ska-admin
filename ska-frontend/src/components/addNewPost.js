@@ -42,14 +42,6 @@ export default function AddNewPost() {
   const [selectType, setSelectType] = useState();
   const [type, setType] = useState("true");
 
-  useEffect(() => {
-    axios.get(`${env.URL}/api/getallposttype`).then((result) => {
-      if (result.data.success) {
-        console.log(result.data.data);
-        setSelectType(result.data.data);
-      }
-    });
-  }, []);
   const onChange = (e) => {
     let x = [];
     if (e.target.files.length > 1) {

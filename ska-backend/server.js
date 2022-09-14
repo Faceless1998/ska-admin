@@ -8,7 +8,7 @@ const PORT = process.env.PORT || env.PORT;
 const BASE_URL = env.BASE_URL;
 
 app.use(cors());
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json({ limit: "60mb" }));
 app.use(express.static(__dirname));
 const uri = BASE_URL;
 mongoose.connect(uri, {

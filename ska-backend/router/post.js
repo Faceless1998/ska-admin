@@ -2,9 +2,10 @@ const router = require("express").Router();
 const path = require("path");
 const postSchema = require("./../schema/post");
 router.route("/add").post(async (req, res) => {
+  console.log({body: req.body})
   // const dir = path.join(__dirname, "../public/images");
   const name = req.body.data.name;
-  // const postIMG = req.body.data.postIMG;
+  const postIMG = req.body.data.postImg;
   const description = req.body.data.description;
   const features = req.body.data.feature;
   const thumbIMG = req.body.data.thumbImg;
@@ -15,6 +16,7 @@ router.route("/add").post(async (req, res) => {
 
   // Product Thumb image upload
 
+  console.log({postIMG})
   let thumbIGMURL = "";
   let base64Data = thumbIMG.replace(/^data:image\/\w+;base64,/, "");
   thumbIGMURL = `${name.replace(/\s/g, "").split("/").join("_") + "_main"}.${
@@ -32,6 +34,24 @@ router.route("/add").post(async (req, res) => {
   );
 
   let imgARR = [];
+  postIMG.map((IMGURL, i) => {
+    let base64Data = IMGURL.replace(/^data:image\/\w+;base64,/, "");
+    imgARR.push({
+      url: `${name.replace(/\s/g, "").split("/").join("_") + i}.${
+        IMGURL.split("/")[1].split(";")[0]
+      }`,
+    });
+    require("fs").writeFile(
+      `${__dirname}/${name.replace(/\s/g, "").split("/").join("_") + i}.${
+        IMGURL.split("/")[1].split(";")[0]
+      }`,
+      base64Data,
+      "base64",
+      function (err) {
+        console.log(err);
+      }
+    );
+  });
   const obj = {
     name: name,
     description: description,
@@ -59,17 +79,7 @@ router.route("/add").post(async (req, res) => {
   // });
 
   // await postSchema.create({title: "SDF"})
-  const post = await postSchema.findOne({postType: "Post"})
-  if (post) {
-    console.log(post)
-  } else {
-    await postSchema.create({
-      PostType: req.body.type,
-      Posts: [
-        "asdf"
-      ],
-    })
-  }
+    await postSchema.create(obj)
 
   res.json({ success: true });
 });

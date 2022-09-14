@@ -1,21 +1,4 @@
 const mongoose = require("mongoose");
-
-const Properties = new mongoose.Schema({
-  prop: {
-    type: String,
-  },
-  value: {
-    type: String,
-  },
-});
-const PropertiesGE = new mongoose.Schema({
-  prop: {
-    type: String,
-  },
-  value: {
-    type: String,
-  },
-});
 const Images = new mongoose.Schema({
   url: {
     type: String,
@@ -42,20 +25,11 @@ const Posts = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  properties: [Properties],
-  propertiesGE: [PropertiesGE],
-
   mainImage: {
     type: String,
     required: true,
   },
   images: [Images],
 });
-const PostSchema = new mongoose.Schema({
-  PostType: {
-    type: String,
-  },
-  Posts: [],
-});
-module.exports = mongoose.model("post", PostSchema);
+
+module.exports = mongoose.model("post", Posts);
